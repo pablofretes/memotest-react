@@ -52,7 +52,8 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        leaderboard: async (root, args) => await Score.find({}),
+        leaderboard: async (root, args) => await Score.find({}).populate('user', { username: 1}),
+        currentUser: async (root, args) => await User.find({ username: args.username }).populate('score', { timeCount: 1, turns: 1 })
     },
     Mutation: {
         createUser: async (root, args) => {
@@ -78,7 +79,7 @@ const resolvers = {
             return user;
         },
         login: async (root, args) => {
-            const user = await User.findOne({ username: args.username });
+            const user = await User.findOne({ username: args.username }).populate('score', { timeCount: 1, turns: 1 });
 
             const passwordCorrect = user === null ? false : await bcrypt.compare(args.password, user.passwordHash);
 
@@ -115,7 +116,7 @@ const server = new ApolloServer({
     resolvers,
     context: async ({ req }) => {
         const auth = req ? req.headers.authorization : null;
-        if(auth && auth.toLoweCase().startsWith('bearer ')){
+        if(auth && auth.toLowerCase().startsWith('bearer ')){
             const decodedToken = jwt.verify(auth.substring(7), config.SECRET);
             const currentUser = await User.findById(decodedToken.id);
             return { currentUser };
