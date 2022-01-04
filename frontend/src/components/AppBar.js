@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, makeStyles, AppBar, Toolbar, Typography, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { useApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const AppBarMemotest = ({ token, setToken }) => {
   const classes = useStyles();
+  const client = useApolloClient();
 
   const handleLogOut = () => {
-    localStorage.removeItem('user-token');
+    localStorage.clear();
     setToken(null);
+    client.resetStore();
   };
 
-  console.log(token)
 
   return (
     <Box className={classes.root}>

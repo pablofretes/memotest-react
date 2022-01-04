@@ -12,10 +12,10 @@ const schema = new mongoose.Schema({
         required: true,
         minlength: 4
     },
-    score: {
+    score: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Score',
-    },
+    }],
 });
 
 const User = mongoose.model('User', schema);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Field, Formik, Form, ErrorMessage } from 'formik';
 import { Button, makeStyles, Paper } from '@material-ui/core';
 import * as yup from 'yup';
@@ -57,20 +57,26 @@ const validationSchema = yup.object().shape({
         .oneOf([yup.ref('password'), null], 'Password must be the same!')
 });
 
-const SignUp = () => {
+const SignUp = ({ setToken }) => {
     const classes = useStyles();
     const navigate = useNavigate();
     const [signUp, result] = useMutation(CREATE_USER);
+
+    useEffect(() => {
+        if(result.data) {
+            const token = result.data.login.value;
+            setToken(token);
+            localStorage.setItem('memotest-user-token', token);
+            navigate('/');
+        };
+        // eslint-disable-next-line
+    }, [result.data, setToken]);
 
     const onSubmit = async (event) => {
         const username = event.username;
         const password = event.password;
 
         signUp({ variables: { username: username, password: password } });
-
-        if(result.data) {
-            navigate('/');
-        };
     };
 
     return (

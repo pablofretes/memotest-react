@@ -20,8 +20,10 @@ const useMemotest = () => {
     setCounter(counter => counter + 1);
   };
   
+  let interval = null;
+
   const timeInterval = () => {
-    setInterval(countUp, 1000);
+    interval = setInterval(countUp, 1000);
   };
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const useMemotest = () => {
 
     if(paired.length === images.length / 2){
       setOpen(true);
+      clearInterval(interval);
       if(token){
         saveScore({ variables: { timeCount: counter, turns: turn } });
       };

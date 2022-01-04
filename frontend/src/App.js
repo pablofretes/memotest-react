@@ -31,7 +31,7 @@ const App = () => {
           setOpen={setOpen}
           />}/>
         <Route path='/login' element={<Login setToken={setToken}/>}/>
-        <Route path='/signUp' element={<SignUp />}/>
+        <Route path='/signUp' element={<SignUp setToken={setToken}/>}/>
       </Routes>
     </div>
   );

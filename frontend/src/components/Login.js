@@ -61,7 +61,7 @@ const Login = ({ setToken }) => {
         if(result.data) {
             const token = result.data.login.value;
             setToken(token);
-            localStorage.setItem('user-token', token);
+            localStorage.setItem('memotest-user-token', token);
             navigate('/');
         };
         // eslint-disable-next-line

@@ -23,6 +23,7 @@ const typeDefs = gql`
     type Score {
         timeCount: Int!
         turns: Int!
+        user: User!
     }
 
     type Token {
@@ -53,7 +54,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         leaderboard: async (root, args) => await Score.find({}).populate('user', { username: 1}),
-        currentUser: async (root, args) => await User.find({ username: args.username }).populate('score', { timeCount: 1, turns: 1 })
+        currentUser: async (root, args) => await User.find({ username: args.username }).populate('score', { timeCount: 1, turns: 1, username: 1 })
     },
     Mutation: {
         createUser: async (root, args) => {
@@ -65,8 +66,8 @@ const resolvers = {
                 });
             };
 
-            const password1 = await bcrypt.hash(args.password, 10);
-            const user = await new User({ username: args.username, passwordHash: password1 });
+            const passwordHash = await bcrypt.hash(args.password, 10);
+            const user = await new User({ username: args.username, passwordHash: passwordHash });
 
             try {
                 await user.save();
@@ -76,26 +77,38 @@ const resolvers = {
                 });
             };
 
-            return user;
-        },
-        login: async (root, args) => {
-            const user = await User.findOne({ username: args.username }).populate('score', { timeCount: 1, turns: 1 });
-
-            const passwordCorrect = user === null ? false : await bcrypt.compare(args.password, user.passwordHash);
-
-            if(!(user || passwordCorrect)){
-                throw new UserInputError('invalid credentials');
-            }
-
             const userForToken = {
                 username: user.username,
-                id: user._id,
+                id: user._id
             };
 
             return { value: jwt.sign(userForToken, config.SECRET) };
         },
-        saveScore: async (root, args) => {
-            const score = await new Score({ timeCount: args.timeCount, turns: args.turns });
+        login: async (root, args) => {
+            const user = await User.findOne({ username: args.username });
+
+            if(!user){
+                throw new UserInputError('No such user found');
+            };
+
+            const passwordCorrect = await bcrypt.compare(args.password, user.passwordHash);
+
+            if(!passwordCorrect){
+                throw new UserInputError('incorrect password');
+            };
+
+            const userForToken = {
+                username: user.username,
+                id: user._id
+            };
+
+            return { value: jwt.sign(userForToken, config.SECRET) };
+        },
+        saveScore: async (root, args, { currentUser }) => {
+            if(!currentUser){
+                throw new AuthenticationError("not authenticated")
+            };
+            const score = await new Score({ timeCount: args.timeCount, turns: args.turns, user: currentUser });
             
             try {
                 score.save();
@@ -116,9 +129,9 @@ const server = new ApolloServer({
     resolvers,
     context: async ({ req }) => {
         const auth = req ? req.headers.authorization : null;
-        if(auth && auth.toLowerCase().startsWith('bearer ')){
+        if(auth && auth.toLowerCase().startsWith('bearer ')) {
             const decodedToken = jwt.verify(auth.substring(7), config.SECRET);
-            const currentUser = await User.findById(decodedToken.id);
+            const currentUser = await User.findById(decodedToken.id).populate('score');
             return { currentUser };
         };
     }

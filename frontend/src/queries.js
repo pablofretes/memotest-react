@@ -5,6 +5,9 @@ export const LEADERBOARD = gql`
         leaderboard {
             timeCount
             turns
+            user {
+                username
+            }
         }
     }
 `;
