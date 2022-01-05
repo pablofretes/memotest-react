@@ -6,12 +6,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  height: 200,
+  height: 300,
   width: 'auto',
   bgcolor: '#666666',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius: 25
 };
 
 const ReplayModal = ({ open, setOpen, reset }) => {

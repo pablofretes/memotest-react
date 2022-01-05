@@ -9,7 +9,7 @@ const Memotest = ({ images, handleClicks, clickedBlocks, paired, reset, counter,
         <div>
             {console.log(paired)}
             <ReplayModal open={open} setOpen={setOpen} reset={reset}/>
-            <div >{formatCounter((counter/60).toFixed(0))}:{formatCounter(counter%60)}</div>
+            <div >{formatCounter(Math.floor(counter/60))}:{formatCounter(counter%60)}</div>
             <div>Turn: {turn}</div>
             <div className='img-wrapper'>
                 {images.map(i => (

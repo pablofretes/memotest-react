@@ -25,3 +25,12 @@ body {
   pointer-events: none;
   opacity: 0.8;
 }
+
+.text {
+  text-align: flex-start;
+  font-family: Roboto, monospace;
+  font-weight: bolder;
+  color: black;
+  font-size: 16px;
+  margin-left: 5px;
+}

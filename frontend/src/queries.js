@@ -14,6 +14,8 @@ export const LEADERBOARD = gql`
 
 export const LOGGED_USER = gql`
     query {
-        currentUser
+        currentUser {
+            username
+        }
     }
 `;

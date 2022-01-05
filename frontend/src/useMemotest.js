@@ -20,10 +20,14 @@ const useMemotest = () => {
     setCounter(counter => counter + 1);
   };
   
-  let interval = null;
+  let interval;
 
   const timeInterval = () => {
     interval = setInterval(countUp, 1000);
+  };
+
+  const stopInterval = () => {
+    return clearInterval(interval);
   };
 
   useEffect(() => {
@@ -32,7 +36,6 @@ const useMemotest = () => {
       const secondPokemon = clickedBlocks[1].substring(0, clickedBlocks[1].length - 2);
 
       if(firstPokemon === secondPokemon){
-        console.log(firstPokemon, secondPokemon)
         setPaired([...paired, firstPokemon]);
         setClickedBlocks([]);
       } else {
@@ -45,10 +48,10 @@ const useMemotest = () => {
 
     if(paired.length === images.length / 2){
       setOpen(true);
-      clearInterval(interval);
       if(token){
         saveScore({ variables: { timeCount: counter, turns: turn } });
       };
+      stopInterval();
     };
     // eslint-disable-next-line
   }, [clickedBlocks, paired]);
@@ -73,6 +76,10 @@ const useMemotest = () => {
     setCounter(0);
     timeInterval();
     navigate('/memotest');
+  };
+
+  if(paired.length === images.length / 2){
+    stopInterval();
   };
 
   return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset };

@@ -124,7 +124,7 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-    introspection: true,
+    introspection: process.env.NODE_ENV === 'production' ? null : true,
     typeDefs,
     resolvers,
     context: async ({ req }) => {
