@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     flexDirection: 'row',
-    flexWrap: 'nowrap'
+    flexWrap: 'nowrap',
+    backgroundColor: 'orange'
   },
   filter: {
     position: 'absolute',
@@ -36,13 +37,13 @@ const AppBarMemotest = ({ token, setToken }) => {
 
   return (
     <Box className={classes.root}>
-      <AppBar position="static" color="primary" className={classes.appBar}>
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit">
-              <Button color="inherit" component={Link} to="/" data-cy='home-button'>
+              <Button color="black" component={Link} to="/" data-cy='home-button'>
                 Home
               </Button>
-              <Button color="inherit" component={Link} to="/leaderboard" data-cy='leaderboard-button'>
+              <Button color="black" component={Link} to="/leaderboard" data-cy='leaderboard-button'>
                 Leaderboard
               </Button>
           </Typography>
@@ -50,14 +51,14 @@ const AppBarMemotest = ({ token, setToken }) => {
         <Toolbar variant="dense">
           {token !== null ? (
             <div>
-              <Button onClick={handleLogOut} color="inherit" to="/login" data-cy="logout-button" component={Link} className="logout-button">
+              <Button onClick={handleLogOut} color="black" to="/login" data-cy="logout-button" component={Link} className="logout-button">
                 Log Out
               </Button>
             </div>
           ) : (
             <div>
-              <Button className={classes.button} color="inherit" component={Link} to="/login" data-cy="login-button">Log In</Button>
-              <Button className={classes.button} color="inherit" component={Link} to="/signUp" data-cy="signUp-button">Sign Up</Button>
+              <Button className={classes.button} color="black" component={Link} to="/login" data-cy="login-button">Log In</Button>
+              <Button className={classes.button} color="black" component={Link} to="/signUp" data-cy="signUp-button">Sign Up</Button>
             </div>
           )}
         </Toolbar>

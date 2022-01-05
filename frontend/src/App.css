@@ -1,17 +1,20 @@
 body {
-  background-color: #222222;
+  background-color: #2e8bc0;
 }
 
 .img-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  margin-left: 50px;
+  margin: 40px;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .img-container {
-  width: 5%;
-  height: auto;
+  width: 35%;
+  height: 60%;
   border: 1px solid white;
+  border-radius: 10px;
+  background-color: #222222;
   padding: 10px;
   margin: 10px;
   text-align: center;
@@ -19,6 +22,7 @@ body {
 
 .img {
   width: 90%;
+  height: 100%;
 }
 
 .disabled {

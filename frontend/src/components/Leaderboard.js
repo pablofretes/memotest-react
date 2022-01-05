@@ -35,7 +35,7 @@ const Leaderboard = () => {
 
     let sortedScores = [...scoresArray].sort((a, b) => {
         if(a.turns === b.turns){
-            return b.timeCount - a.timeCount;
+            return a.timeCount - b.timeCount;
         };
         return a.turns > b.turns ? 1 : - 1;
     }).slice(0, 9);

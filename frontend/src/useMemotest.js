@@ -15,27 +15,21 @@ const useMemotest = () => {
   const [score, setScore] = useState([]);
   const [token, setToken] = useState(null);
   const [counter, setCounter] = useState(0);
+  const [isRunning, setIsRunning] = useState(null);
 
   const countUp = () => {
     setCounter(counter => counter + 1);
   };
   
-  let interval;
-
-  const timeInterval = () => {
-    interval = setInterval(countUp, 1000);
-  };
-
-  const stopInterval = () => {
-    return clearInterval(interval);
-  };
-
   useEffect(() => {
     if(clickedBlocks.length === 2){
+      //IF 2 IMAGES ARE CLICKED WE CHECK IF THEY ARE OF THE SAME POKEMON
       const firstPokemon = clickedBlocks[0].substring(0, clickedBlocks[0].length - 2);
       const secondPokemon = clickedBlocks[1].substring(0, clickedBlocks[1].length - 2);
 
       if(firstPokemon === secondPokemon){
+        //IF THEY ARE, THEN THOSE ARE MARKED AS PAIRED AND ADDED TO THE paired STATE ARRAY
+        //THE clickedBlocks STATE ARRAY GOES BACK TO BEING EMPTY
         setPaired([...paired, firstPokemon]);
         setClickedBlocks([]);
       } else {
@@ -43,15 +37,19 @@ const useMemotest = () => {
           setClickedBlocks([]);
         }, 1000);
       };
+      //EVERY 2 CLICKS IS A TURN
       setTurn(turn => turn + 1);
     };
 
     if(paired.length === images.length / 2){
+      //THERE ALWAYS ARE HALF THE AMOUNT OF PAIRS AS THERE ARE IMAGES WHEN THE GAME IS OVER
+      //IF THERE IS A LOGGED IN USER WE SAVE THEIR SCORE AND OPEN A MODAL
       setOpen(true);
       if(token){
         saveScore({ variables: { timeCount: counter, turns: turn } });
       };
-      stopInterval();
+      //TIMER IS STOPPED
+      setIsRunning(false)
     };
     // eslint-disable-next-line
   }, [clickedBlocks, paired]);
@@ -61,6 +59,14 @@ const useMemotest = () => {
       setScore([result.data]);
     };
   }, [result.data]);
+
+  useEffect(() => {
+    let interval;
+    if(isRunning){
+      interval = setInterval(countUp, 1000);
+    };
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
   const handleClicks = (pokemon) => {
     if(!clickedBlocks.includes(pokemon) && clickedBlocks.length < 2) {
@@ -74,12 +80,8 @@ const useMemotest = () => {
     setOpen(false);
     setTurn(0);
     setCounter(0);
-    timeInterval();
+    setIsRunning(true);
     navigate('/memotest');
-  };
-
-  if(paired.length === images.length / 2){
-    stopInterval();
   };
 
   return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset };
