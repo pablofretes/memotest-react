@@ -3,10 +3,11 @@ import { doublePokemons } from "./utils/helper_functions";
 import { SAVE_SCORE } from './mutations';
 import { useMutation } from "@apollo/client";
 import { useNavigate } from 'react-router-dom';
+import { pokemonImages } from './utils/pokemonImages';
 
 const useMemotest = () => {
   const navigate = useNavigate();
-  const [images, setImages] = useState(doublePokemons);
+  const [images, setImages] = useState(doublePokemons(pokemonImages));
   const [clickedBlocks, setClickedBlocks] = useState([]);
   const [paired, setPaired] = useState([]);
   const [turn, setTurn] = useState(0);
@@ -75,7 +76,7 @@ const useMemotest = () => {
   };
 
   const reset = () => {
-    setImages(doublePokemons);
+    setImages(doublePokemons(pokemonImages));
     setPaired([]);
     setOpen(false);
     setTurn(0);

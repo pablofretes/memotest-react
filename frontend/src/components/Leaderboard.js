@@ -42,10 +42,10 @@ const Leaderboard = () => {
 
     return (
         <div className={classes.root}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} data-cy="leaderboard">
                 <p className='text'>TOP 10</p>
                 {sortedScores.map((score, index) => {
-                    return <p key={index}>{score.user.username}  -  {score.turns} turns | | | {score.timeCount} seconds</p>
+                    return <p className='text' key={index}>{score.user.username}  -  {score.turns} turns &amp; {score.timeCount} seconds</p>
                 })}
             </Paper>
         </div>

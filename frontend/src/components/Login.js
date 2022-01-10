@@ -45,14 +45,14 @@ const validationSchema = yup.object().shape({
     username: yup
         .string()
         .required()
-        .min(5, 'Username must contain at least 5 characters'),
+        .min(5, 'Username must contain at least 4 characters'),
     password: yup
         .string()
         .required()
-        .min(5, 'Username must contain at least 5 characters'),
+        .min(5, 'Username must contain at least 4 characters'),
 });
 
-const Login = ({ setToken }) => {
+const Login = ({ setToken, setNotification }) => {
     const classes = useStyles();
     const navigate = useNavigate();
     const [login, result] = useMutation(LOG_IN);
@@ -62,6 +62,14 @@ const Login = ({ setToken }) => {
             const token = result.data.login.value;
             setToken(token);
             localStorage.setItem('memotest-user-token', token);
+            const notification = {
+                message: 'You have successfully logged-in!',
+                success: true,
+            };
+            setNotification(notification);
+            setTimeout(() => {
+                setNotification({});
+            }, 5000);
             navigate('/');
         };
         // eslint-disable-next-line
@@ -71,7 +79,19 @@ const Login = ({ setToken }) => {
         const username = event.username;
         const password = event.password;
 
-        login({ variables: { username, password } });
+        try {
+            await login({ variables: { username, password } });
+        } catch (error) {
+            const notification = {
+                message: 'There was an error logging into your account',
+                success: false,
+            };
+            setNotification(notification);
+            setTimeout(() => {
+                setNotification({});
+            }, 5000);
+            return null;
+        }
     };
 
     return(

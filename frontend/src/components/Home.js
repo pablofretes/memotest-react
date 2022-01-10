@@ -27,7 +27,7 @@ const Home = ({ reset }) => {
 
     return (
         <div className={classes.root}>
-            <Button onClick={reset} className={classes.button}><Link to='/memotest' style={{ textDecoration: 'none' }}>PLAY</Link></Button>
+            <Button onClick={reset} data-cy='play-button' className={classes.button}><Link to='/memotest' style={{ textDecoration: 'none' }}>PLAY</Link></Button>
         </div>
     );
 };

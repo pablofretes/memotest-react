@@ -65,7 +65,7 @@ const resolvers = {
                     invalidArgs: args.username,
                 });
             };
-
+            
             const passwordHash = await bcrypt.hash(args.password, 10);
             const user = await new User({ username: args.username, passwordHash: passwordHash });
 
@@ -77,12 +77,7 @@ const resolvers = {
                 });
             };
 
-            const userForToken = {
-                username: user.username,
-                id: user._id
-            };
-
-            return { value: jwt.sign(userForToken, config.SECRET) };
+            return user;
         },
         login: async (root, args) => {
             const user = await User.findOne({ username: args.username });
@@ -119,19 +114,19 @@ const resolvers = {
             };
 
             return score;
-        }
+        },
     }
 };
 
 const server = new ApolloServer({
-    introspection: process.env.NODE_ENV === 'production' ? null : true,
+    introspection: process.env.NODE_ENV === 'production' ? false : true,
     typeDefs,
     resolvers,
     context: async ({ req }) => {
         const auth = req ? req.headers.authorization : null;
         if(auth && auth.toLowerCase().startsWith('bearer ')) {
             const decodedToken = jwt.verify(auth.substring(7), config.SECRET);
-            const currentUser = await User.findById(decodedToken.id).populate('score');
+            const currentUser = await User.findById(decodedToken.id);
             return { currentUser };
         };
     }

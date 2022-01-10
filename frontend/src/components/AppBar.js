@@ -40,10 +40,10 @@ const AppBarMemotest = ({ token, setToken }) => {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit">
-              <Button color="black" component={Link} to="/" data-cy='home-button'>
+              <Button component={Link} to="/" data-cy="home-button">
                 Home
               </Button>
-              <Button color="black" component={Link} to="/leaderboard" data-cy='leaderboard-button'>
+              <Button component={Link} to="/leaderboard" data-cy="leaderboard-button">
                 Leaderboard
               </Button>
           </Typography>
@@ -51,14 +51,14 @@ const AppBarMemotest = ({ token, setToken }) => {
         <Toolbar variant="dense">
           {token !== null ? (
             <div>
-              <Button onClick={handleLogOut} color="black" to="/login" data-cy="logout-button" component={Link} className="logout-button">
+              <Button onClick={handleLogOut} to="/login" data-cy="logout-button" component={Link} className="logout-button">
                 Log Out
               </Button>
             </div>
           ) : (
             <div>
-              <Button className={classes.button} color="black" component={Link} to="/login" data-cy="login-button">Log In</Button>
-              <Button className={classes.button} color="black" component={Link} to="/signUp" data-cy="signUp-button">Sign Up</Button>
+              <Button className={classes.button} component={Link} to="/login" data-cy="login-button">Log In</Button>
+              <Button className={classes.button} component={Link} to="/signUp" data-cy="signUp-button">Sign Up</Button>
             </div>
           )}
         </Toolbar>

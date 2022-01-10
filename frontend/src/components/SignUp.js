@@ -45,38 +45,56 @@ const validationSchema = yup.object().shape({
     username: yup
         .string()
         .required()
-        .min(5, 'Username must contain at least 5 characters')
+        .min(4, 'Username must contain at least 4 characters')
         .max(20, 'Username must not contain more than 20 characters'),
     password: yup
         .string()
         .required()
-        .min(5, 'Password must contain at least 5 characters')
+        .min(4, 'Password must contain at least 4 characters')
         .max(20, 'Password must not contain more than 20 characters'),
     passwordConfirmation: yup
         .string()
         .oneOf([yup.ref('password'), null], 'Password must be the same!')
 });
 
-const SignUp = ({ setToken }) => {
+const SignUp = ({ setNotification }) => {
     const classes = useStyles();
     const navigate = useNavigate();
     const [signUp, result] = useMutation(CREATE_USER);
 
     useEffect(() => {
         if(result.data) {
-            const token = result.data.login.value;
-            setToken(token);
-            localStorage.setItem('memotest-user-token', token);
+            const notification = {
+                message: 'You have successfully created your account!',
+                success: true,
+            };
+            setNotification(notification);
+            setTimeout(() => {
+                setNotification({});
+            }, 5000);
             navigate('/');
         };
         // eslint-disable-next-line
-    }, [result.data, setToken]);
+    }, [result.data]);
 
     const onSubmit = async (event) => {
         const username = event.username;
         const password = event.password;
 
-        signUp({ variables: { username: username, password: password } });
+        try {
+            await signUp({ variables: { username: username, password: password } });
+        } catch (error) {
+            const notification = {
+                message: 'There was an error creating your account',
+                success: false,
+            };
+            console.log(error);
+            setNotification(notification);
+            setTimeout(() => {
+                setNotification({});
+            }, 5000);
+            return null;
+        }
     };
 
     return (
