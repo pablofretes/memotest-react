@@ -1,33 +1,22 @@
 import React from 'react';
-import { Button, makeStyles } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import Memotest from './Memotest';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        flexGrow: 1,
-        justifyContent: 'center'
-    },
-    button: {
-        backgroundColor: '#ADD8E6',
-        height: 150,
-        alignSelf: 'center',
-        width: width,
-        borderRadius: width/2,
-        marginTop: 120
-    },
-}));
-
-const width = 250;
-
-const Home = ({ reset }) => {
-    const classes = useStyles();
-
+const Home = ({ reset, images, handleClicks, clickedBlocks, turn, paired, counter, open, setOpen, disabled }) => {
     return (
-        <div className={classes.root}>
-            <Button onClick={reset} data-cy='play-button' className={classes.button}><Link to='/memotest' style={{ textDecoration: 'none' }}>PLAY</Link></Button>
+        <div>
+            <button className='play-again-button' onClick={reset}>Play!</button>
+            <Memotest
+                disabled={disabled}
+                images={images}
+                handleClicks={handleClicks}
+                clickedBlocks={clickedBlocks}
+                paired={paired}
+                turn={turn}
+                reset={reset}
+                counter={counter}
+                open={open}
+                setOpen={setOpen}
+            />
         </div>
     );
 };

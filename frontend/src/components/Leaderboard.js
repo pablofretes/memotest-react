@@ -2,22 +2,34 @@ import React from 'react';
 import { LEADERBOARD } from '../queries';
 import { useQuery } from '@apollo/client';
 import Loading from './Loading';
-import { makeStyles, Paper } from '@material-ui/core';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { makeStyles } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         justifyContent: 'center',
-        marginTop: 100,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center'
     },
     paper: {
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
         backgroundColor: '#ADD8E6',
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
     },
+    tableContainer: {
+        marginTop: 50,
+        maxWidth: 800,
+    }
 }));
 
 const Leaderboard = () => {
@@ -42,12 +54,31 @@ const Leaderboard = () => {
 
     return (
         <div className={classes.root}>
-            <Paper className={classes.paper} data-cy="leaderboard">
-                <p className='text'>TOP 10</p>
-                {sortedScores.map((score, index) => {
-                    return <p className='text' key={index}>{score.user.username}  -  {score.turns} turns &amp; {score.timeCount} seconds</p>
-                })}
-            </Paper>
+            <TableContainer component={Paper} className={classes.tableContainer}>
+                <Table sx={{ minWidth: 500, maxWidth: 800 }} aria-label="simple table" className={`leaderboard ${classes.paper}`}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell >Username</TableCell>
+                            <TableCell align="right">Turns</TableCell>
+                            <TableCell align="right">Seconds</TableCell>
+                        </TableRow>
+                    </TableHead>
+                <TableBody>
+                    {sortedScores.map((score, index) => (
+                        <TableRow
+                        key={index}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row">
+                            {score.user.username}
+                            </TableCell>
+                            <TableCell align="right">{score.turns}</TableCell>
+                            <TableCell align="right">{score.timeCount}</TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 };

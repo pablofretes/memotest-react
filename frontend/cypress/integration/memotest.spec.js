@@ -6,7 +6,6 @@ describe('Memotest', function (){
 
     it('front page and leaderboard can be opened', function () {
         cy.get('[data-cy=leaderboard-button]').click();
-        cy.contains('TOP 10');
         cy.get('[data-cy=leaderboard]');
         cy.get('[data-cy=home-button]');
     });

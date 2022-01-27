@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import { doublePokemons } from "./utils/helper_functions";
 import { SAVE_SCORE } from './mutations';
 import { useMutation } from "@apollo/client";
-import { useNavigate } from 'react-router-dom';
 import { pokemonImages } from './utils/pokemonImages';
 
 const useMemotest = () => {
-  const navigate = useNavigate();
   const [images, setImages] = useState(doublePokemons(pokemonImages));
   const [clickedBlocks, setClickedBlocks] = useState([]);
   const [paired, setPaired] = useState([]);
@@ -17,6 +15,7 @@ const useMemotest = () => {
   const [token, setToken] = useState(null);
   const [counter, setCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
+  const [disabled, setDisabled] = useState(true);
 
   const countUp = () => {
     setCounter(counter => counter + 1);
@@ -82,10 +81,10 @@ const useMemotest = () => {
     setTurn(0);
     setCounter(0);
     setIsRunning(true);
-    navigate('/memotest');
+    setDisabled(false);
   };
 
-  return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset };
+  return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset, disabled };
 };
 
 export default useMemotest;

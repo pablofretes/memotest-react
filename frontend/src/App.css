@@ -1,10 +1,10 @@
 body {
   background-color: #2e8bc0;
+  font-family: Cairo, sans-serif;
 }
 
 .img-wrapper {
-  margin-left: 50px;
-  margin: 40px;
+  margin: 25px;
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
@@ -16,7 +16,7 @@ body {
   border-radius: 10px;
   background-color: #222222;
   padding: 10px;
-  margin: 10px;
+  margin: auto;
   text-align: center;
 }
 
@@ -32,7 +32,6 @@ body {
 
 .text {
   text-align: flex-start;
-  font-family: Roboto, monospace;
   font-weight: bolder;
   color: black;
   font-size: 16px;
@@ -44,7 +43,7 @@ body {
 }
 
 .play-again-button {
-  background-color: #1899D6;
+  background-color: orange;
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 4px;
@@ -52,7 +51,6 @@ body {
   color: #FFFFFF;
   cursor: pointer;
   display: block;
-  font-family: din-round,sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: .8px;
@@ -70,6 +68,7 @@ body {
   -webkit-user-select: none;
   white-space: nowrap;
   width: 50%;
+  margin-top: 3vw;
 }
 
 .play-again-button:after {
@@ -132,12 +131,22 @@ body {
   flex-grow: 1;
   justify-items: center;
 }
+
 .counters {
   width: 120px;
   border-radius: 25px;
   height: 25px;
-  text-align: 'center';
-  background-color: '#ADD8E6';
+  text-align: center;
+  background-color: #ADD8E6;
   margin: 5px;
+}
+
+.counters-container{
+  display: flex;
   justify-content: 'center';
+  margin: 0 auto;
+}
+
+.leaderboard {
+  width: 50vw;
 }
