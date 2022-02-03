@@ -2,7 +2,7 @@
 
 ## Description
   
-    This is a FullStack memotest game app made to be play memotest and make a leaderboard of the best scores.
+    This is a FullStack memotest game app made to play memotest and make a leaderboard of the best scores.
     The Backend was made using Apollo GraphQL.
     The Frontend was made using React.
     My motivation for this project comes from one of the learning projects at https://argentinaprograma.com/ .
