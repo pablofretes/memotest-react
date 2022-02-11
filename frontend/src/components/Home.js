@@ -1,7 +1,7 @@
 import React from 'react';
 import Memotest from './Memotest';
 
-const Home = ({ reset, images, handleClicks, clickedBlocks, turn, paired, counter, open, setOpen, disabled }) => {
+const Home = ({ reset, images, handleClicks, clickedBlocks, turn, paired, counter, open, setOpen, disabled, show }) => {
     return (
         <div>
             <button className='play-again-button' onClick={reset}>Play!</button>
@@ -16,6 +16,7 @@ const Home = ({ reset, images, handleClicks, clickedBlocks, turn, paired, counte
                 counter={counter}
                 open={open}
                 setOpen={setOpen}
+                show={show}
             />
         </div>
     );

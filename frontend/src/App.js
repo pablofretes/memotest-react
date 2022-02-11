@@ -12,7 +12,7 @@ import Notification from './components/Notification';
 const App = () => {
   const [notification, setNotification] = useState({});
 
-  const { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, token, setToken, counter, reset, disabled } = useMemotest();
+  const { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, token, setToken, counter, reset, disabled, show } = useMemotest();
 
   return (
     <div>
@@ -30,6 +30,7 @@ const App = () => {
           counter={counter}
           open={open}
           setOpen={setOpen}
+          show={show}
         />}/>
         <Route path='/leaderboard' element={<Leaderboard />}/>
         <Route path='/login' element={<Login setToken={setToken} setNotification={setNotification} />}/>
