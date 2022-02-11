@@ -3,6 +3,7 @@ import { doublePokemons } from "./utils/helper_functions";
 import { SAVE_SCORE } from './mutations';
 import { useMutation } from "@apollo/client";
 import { pokemonImages } from './utils/pokemonImages';
+import { LEADERBOARD } from './queries';
 
 const useMemotest = () => {
   const [images, setImages] = useState(doublePokemons(pokemonImages));
@@ -10,12 +11,15 @@ const useMemotest = () => {
   const [paired, setPaired] = useState([]);
   const [turn, setTurn] = useState(0);
   const [open, setOpen] = useState(false);
-  const [saveScore, result] = useMutation(SAVE_SCORE);
+  const [saveScore, result] = useMutation(SAVE_SCORE, {
+    refetchQueries: [ { query: LEADERBOARD }]
+  });
   const [score, setScore] = useState([]);
   const [token, setToken] = useState(null);
   const [counter, setCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
   const [disabled, setDisabled] = useState(true);
+  const [show, setShow] = useState(null);
 
   const countUp = () => {
     setCounter(counter => counter + 1);
@@ -68,6 +72,14 @@ const useMemotest = () => {
     return () => clearInterval(interval);
   }, [isRunning]);
 
+  useEffect(() => {
+    if(show){
+      setTimeout(() => {
+          setShow(null);
+      }, 1000)
+    }
+  }, [show])
+
   const handleClicks = (pokemon) => {
     if(!clickedBlocks.includes(pokemon) && clickedBlocks.length < 2) {
       setClickedBlocks([...clickedBlocks, pokemon]);
@@ -76,15 +88,16 @@ const useMemotest = () => {
 
   const reset = () => {
     setImages(doublePokemons(pokemonImages));
+    setShow(true)
     setPaired([]);
     setOpen(false);
     setTurn(0);
-    setCounter(0);
+    setCounter(-1);
     setIsRunning(true);
     setDisabled(false);
   };
 
-  return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset, disabled };
+  return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset, disabled, show };
 };
 
 export default useMemotest;
