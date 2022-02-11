@@ -5,7 +5,11 @@ const useStyles = makeStyles(() => ({
     text: {
         fontSize: 20,
         fontFamily: 'Cairo',
-        fontWeight: 'bolder'
+        fontWeight: 'bolder',
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10
     }
 }))
 
