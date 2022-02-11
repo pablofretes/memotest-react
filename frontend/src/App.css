@@ -10,13 +10,14 @@ body {
 }
 
 .img-container {
-  width: 35%;
-  height: 60%;
+  width: 30%;
+  height: auto;
   border: 1px solid white;
   border-radius: 10px;
   background-color: #222222;
   padding: 10px;
   margin: auto;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -68,7 +69,8 @@ body {
   -webkit-user-select: none;
   white-space: nowrap;
   width: 50%;
-  margin-top: 3vw;
+  margin-bottom: 1vw;
+  margin-top: 1vw;
 }
 
 .play-again-button:after {
@@ -139,4 +141,18 @@ body {
 
 .leaderboard {
   width: 50vw;
+}
+
+.loading-parent {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.loading-gif {
+  height: 50px;
+  width: 50px;
+  margin: auto;
 }
