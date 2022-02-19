@@ -15,10 +15,14 @@ const Memotest = ({ images, handleClicks, clickedBlocks, paired, reset, counter,
             <div className='img-wrapper'>
                 {images.map(i => (
                 <ReactCardFlip isFlipped={clickedBlocks.includes(i.key) || paired.includes(i.name) || show ? false : true} key={i.key}>
-                    <div onClick={() => handleClicks(i.key)} className={`img-container ${paired.includes(i.name) || show || disabled ? 'disabled' : null}`}>
+                    <div 
+											onClick={() => handleClicks(i.key)} className={`img-container ${paired.includes(i.name) || show || disabled ? 'disabled' : null}`}
+											style={{ cursor: `${disabled ? null : 'pointer'}`}}>
                         <img className='img' src={i.img} data-cy={`${i.key}-img`} alt={`${i.name}'s sprite`}/>
                     </div>
-                    <div onClick={() => handleClicks(i.key)} className={`img-container ${paired.includes(i.name) || show || disabled ? 'disabled' : null}`}>
+                    <div 
+											onClick={() => handleClicks(i.key)} className={`img-container ${paired.includes(i.name) || show || disabled ? 'disabled' : null}`}
+											style={{ cursor: `${disabled ? null : 'pointer'}`}}>
                         <img className='img useless' name={`${i.key}`} data-cy={`${i.key}-container`} src={pokeball} alt={`${i.name}'s sprite`}/>
                     </div>
                 </ReactCardFlip>
