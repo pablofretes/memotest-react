@@ -1,62 +1,13 @@
 body {
-  background-color: #2e8bc0;
+	width: 98vw;
+	height: 100vh;
+  background-image: linear-gradient(-45deg, #98d4f7, #71bae4, #2e8bc0);
   font-family: Cairo, sans-serif;
-}
-
-.img-wrapper {
-  margin: 0 auto;
-	margin-top: 2rem;
-	margin-bottom: 3rem;
-  display: grid;
-	width: 80%;
-	height: 62vh;
-	grid-template-columns: repeat(auto-fit, minmax(15vw, 1fr));
-  grid-template-rows: repeat(4, 1fr);
-	row-gap: 2%;
-}
-
-.img-container {
-	height: 100%;
-	width: 85%;
-  border: 1px solid white;
-  border-radius: 10px;
-  background-color: #222222;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin: 0 auto;
-	transition: 1.5s ease;
-}
-
-.img-container:hover{
-	transition: 1.5s ease;
-}
-
-.img {
-	width: 75%;
-	height: auto;
-}
-
-.disabled {
-  pointer-events: none;
-  opacity: 0.8;
-}
-
-.text {
-  text-align: flex-start;
-  font-weight: bolder;
-  color: black;
-  font-size: 16px;
-  margin-left: 5px;
-}
-
-.useless {
-  text-align: flex-start;
 }
 
 .play-again-button {
   background-color: orange;
-  border: solid transparent;
+  border: solid 1px brown;
   border-radius: 16px;
   border-width: 0 0 4px;
   box-sizing: border-box;
@@ -79,14 +30,15 @@ body {
   user-select: none;
   -webkit-user-select: none;
   white-space: nowrap;
-  width: 50%;
+  width: 145px;
   margin-bottom: 1vw;
   margin-top: 1vw;
+	transition: 1s ease;
 }
 
 .play-again-button:after {
   background-clip: padding-box;
-  background-color: #1CB0F6;
+  background-color: rgb(232, 82, 28);
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 4px;
@@ -105,6 +57,8 @@ body {
 }
 
 .play-again-button:hover:not(:disabled) {
+	transition: 1s ease;
+	background-color: rgb(233, 237, 13);
   filter: brightness(1.1);
 }
 
@@ -117,41 +71,10 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25%;
-  background-color: rgba(255, 102, 0, 0.912);
-  box-shadow: 0px 0px 10px 0px #e9b50b;
-  border-radius: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column wrap;
-}
-
-.memotest-root {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  justify-items: center;
-}
-
-.counters {
-  width: 120px;
-  border-radius: 25px;
-  height: 25px;
-  text-align: center;
-  background-color: #ADD8E6;
-  margin: 5px;
-}
-
-.counters-container{
-  display: flex;
-  justify-content: 'center';
-  margin: 0 auto;
-}
-
-.leaderboard {
-  width: 50vw;
 }
 
 .loading-parent {

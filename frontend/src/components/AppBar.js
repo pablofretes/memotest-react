@@ -9,7 +9,7 @@ import { useApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: 'orange'
+    backgroundColor: 'white'
   },
   toolBar: {
     display: 'flex',
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     fontFamily: 'Cairo',
-    fontWeight: 'bolder'
+    fontWeight: 'bold'
   }
 }))
 

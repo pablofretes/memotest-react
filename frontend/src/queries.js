@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const LEADERBOARD = gql`
     query {
         leaderboard {
+						difficulty
             timeCount
             turns
             user {

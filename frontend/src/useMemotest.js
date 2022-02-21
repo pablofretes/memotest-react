@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { doublePokemons } from "./utils/helper_functions";
+import { difficultySwitch, doublePokemons } from "./utils/helper_functions";
 import { SAVE_SCORE } from './mutations';
 import { useMutation } from "@apollo/client";
 import { pokemonImages } from './utils/pokemonImages';
 import { LEADERBOARD } from './queries';
 
 const useMemotest = () => {
-  const [images, setImages] = useState(doublePokemons(pokemonImages));
+  const [images, setImages] = useState([]);
   const [clickedBlocks, setClickedBlocks] = useState([]);
   const [paired, setPaired] = useState([]);
   const [turn, setTurn] = useState(0);
@@ -14,12 +14,15 @@ const useMemotest = () => {
   const [saveScore, result] = useMutation(SAVE_SCORE, {
     refetchQueries: [ { query: LEADERBOARD }]
   });
-  const [score, setScore] = useState([]);
   const [token, setToken] = useState(null);
   const [counter, setCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [show, setShow] = useState(null);
+	const [difficulty, setDifficulty] = useState('');
+
+	const easyDifficulty = [pokemonImages[0], pokemonImages[1], pokemonImages[2], pokemonImages[3], pokemonImages[4], pokemonImages[5]];
+	const normalDifficulty = [pokemonImages[0], pokemonImages[1], pokemonImages[2], pokemonImages[3], pokemonImages[4], pokemonImages[5], pokemonImages[6], pokemonImages[7]];
 
   const countUp = () => {
     setCounter(counter => counter + 1);
@@ -50,19 +53,14 @@ const useMemotest = () => {
       //IF THERE IS A LOGGED IN USER WE SAVE THEIR SCORE AND OPEN A MODAL
       setOpen(true);
       if(token){
-        saveScore({ variables: { timeCount: counter, turns: turn } });
+				console.log(difficulty);
+        saveScore({ variables: { timeCount: counter, turns: turn, difficulty: difficulty } });
       };
       //TIMER IS STOPPED
       setIsRunning(false)
     };
     // eslint-disable-next-line
   }, [clickedBlocks, paired]);
-
-  useEffect(() => {
-    if(result.data) {
-      setScore([result.data]);
-    };
-  }, [result.data]);
 
   useEffect(() => {
     let interval;
@@ -78,7 +76,11 @@ const useMemotest = () => {
           setShow(null);
       }, 1000)
     }
-  }, [show])
+  }, [show]);
+
+	useEffect(() => {
+		difficultySwitch(difficulty, setImages, doublePokemons, easyDifficulty, normalDifficulty, pokemonImages);
+	}, [difficulty])
 
   const handleClicks = (pokemon) => {
     if(!clickedBlocks.includes(pokemon) && clickedBlocks.length < 2) {
@@ -87,7 +89,7 @@ const useMemotest = () => {
   };
 
   const reset = () => {
-    setImages(doublePokemons(pokemonImages));
+		difficultySwitch(difficulty, setImages, doublePokemons, easyDifficulty, normalDifficulty, pokemonImages);
     setShow(true)
     setPaired([]);
     setOpen(false);
@@ -97,7 +99,7 @@ const useMemotest = () => {
     setDisabled(false);
   };
 
-  return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, score, token, setToken, counter, reset, disabled, show };
+  return { images, handleClicks, clickedBlocks, paired, turn, open, setOpen, token, setToken, counter, reset, disabled, show, setDifficulty, difficulty };
 };
 
 export default useMemotest;

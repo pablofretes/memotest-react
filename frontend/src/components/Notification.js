@@ -11,9 +11,9 @@ const Notification = ({ notification }) => {
     return(
         <div>
             {notification.success ? (
-                <Alert severity='success'>{notification.message}</Alert>
+                <Alert style={{ zIndex: 99 }} severity='success'>{notification.message}</Alert>
             ) : (
-                <Alert severity='error'>{notification.message}</Alert>
+                <Alert style={{ zIndex: 99 }} severity='error'>{notification.message}</Alert>
             )}
         </div>
     );

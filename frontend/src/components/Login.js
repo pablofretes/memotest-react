@@ -80,7 +80,7 @@ const Login = ({ setToken, setNotification }) => {
         const password = event.password;
 
         try {
-            await login({ variables: { username, password } });
+            await login({ variables: { username: username, password: password } });
         } catch (error) {
             const notification = {
                 message: 'There was an error logging into your account',

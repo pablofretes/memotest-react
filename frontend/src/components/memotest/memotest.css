@@ -1,0 +1,126 @@
+.memotest-root {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-items: center;
+}
+
+.counters {
+  width: 120px;
+  border-radius: 25px;
+  height: 25px;
+  text-align: center;
+  background-color: #ADD8E6;
+  margin: 5px;
+}
+
+.counters-container{
+  display: flex;
+  justify-content: 'center';
+  margin: 0 auto;
+}
+
+.text {
+  text-align: flex-start;
+  font-weight: bolder;
+  color: black;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.useless {
+  text-align: flex-start;
+}
+
+.img-wrapper {
+  margin: 0 auto;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+  display: grid;
+	width: 80%;
+	height: 62vh;
+	grid-template-columns: repeat(auto-fit, minmax(15vw, 1fr));
+  grid-template-rows: repeat(4, 1fr);
+	row-gap: 2%;
+}
+
+.img-wrapper-normal {
+	margin: 0 auto;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+  display: grid;
+	width: 80%;
+	height: 70vh;
+	grid-template-columns: repeat(auto-fit, minmax(18vw, 1fr));
+  grid-template-rows: repeat(4, 1fr);
+	grid-column-gap: 5px;
+}
+
+.img-wrapper-easy {
+	margin: 0 auto;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+  display: grid;
+	width: 80%;
+	height: 70vh;
+	grid-template-columns: repeat(auto-fit, minmax(22vw, 1fr));
+  grid-template-rows: repeat(4, 1fr);
+	grid-column-gap: 5px;
+}
+
+.img-container {
+	height: 90%;
+	width: 170px;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: #222222;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	transition: 1.5s ease;
+}
+
+.img-container:hover{
+	transition: 1.5s ease;
+}
+
+.img {
+	width: 40%;
+	height: auto;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 1000px){
+	.img-container{
+		width: 120px;
+	}
+}
+
+@media screen and (max-width: 800px){
+	.img-container{
+		width: 88px;
+	}
+}
+
+@media screen and (max-width: 600px){
+	.img-container{
+		width: 59px;
+	}
+}
+
+@media screen and (max-width: 400px){
+
+	.img-container{
+		height: 75%;
+		width: 47px;
+	}
+	.img {
+		width: 50%;
+	}
+}

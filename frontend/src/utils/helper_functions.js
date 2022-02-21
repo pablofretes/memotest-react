@@ -40,3 +40,32 @@ export const isEmpty = (obj) => {
   };
   return false;
 };
+
+export const difficultySwitch = (difficulty, setter, functionDiff, easy, normal, hard ) => {
+	switch (difficulty) {
+		case 'easy': 
+			setter(functionDiff(easy));
+			break;
+		case 'normal':
+			setter(functionDiff(normal));
+			break;
+		case 'hard':
+			setter(functionDiff(hard));
+			break;
+		default:
+			setter(functionDiff(hard));
+			break;
+	}
+};
+
+export const sortingFunction = (array) => {
+
+	let sortedScores = [...array].sort((a, b) => {
+    if(a.turns === b.turns){
+      return a.timeCount - b.timeCount;
+    };
+    return a.turns > b.turns ? 1 : - 1;
+  });
+
+	return sortedScores;
+}
